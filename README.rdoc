@@ -2,6 +2,12 @@
 
 Enable page parts in your model
 
+== Install
+
+  gem "page_parts"
+  
+  rake page_parts_engine:install:migrations
+
 == Usage
 
   class Category < ActiveRecord::Base
