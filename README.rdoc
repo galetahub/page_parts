@@ -1,0 +1,24 @@
+= PageParts
+
+Enable page parts in your model
+
+== Usage
+
+  class Category < ActiveRecord::Base
+    include PageParts::ActiveRecordExtension
+    
+    validates_presence_of :title
+    
+    page_parts :content, :sidebar
+  end
+
+  @category = Category.new
+  @category.content = "Some text"
+  @category.sidebar = "Sidebar text"
+  @category.save
+
+== Test
+
+  rake test
+
+Copyright (c) 2011 Aimbulance, released under the MIT license
