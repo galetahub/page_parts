@@ -37,6 +37,19 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equal @category.content, "Main"
   end
   
+  test "should update page parts" do
+    @category.sidebar = "Sidebar"
+    @category.content = "Main"
+    @category.save
+    
+    @category.update_attributes(:sidebar => "Sidebar 2", :content => "Main 2")
+    
+    @category.reload
+    
+    assert_equal @category.sidebar, "Sidebar 2"
+    assert_equal @category.content, "Main 2"
+  end
+  
   test "should raise error on not registered page part" do
     assert_raise(NoMethodError) do
       @category.wrong_method
