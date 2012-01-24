@@ -1,3 +1,5 @@
+require 'active_support/concern'
+
 module PageParts
   module ActiveRecordExtension
     extend ActiveSupport::Concern
@@ -15,21 +17,24 @@ module PageParts
       ## PageParts
       # Enable page parts in your model:
       #
-      #   page_parts :main, :left, :sidebar
+      #   page_parts :main, :left, :sidebar, :suffix => [:ru, :en, :uk]
       #
       def page_parts(*args)
-        options = args.extract_options!
-       
-        self.page_parts_definitions[:keys] += args.map(&:to_s)
+        options = { :suffix => [nil] }.merge(args.extract_options!)
         
         args.each do |attr_name|
-          define_method(attr_name) do
-            page_part(attr_name).try(:content)
-          end
-          
-          define_method("#{attr_name}=") do |value|
-            record = page_part(attr_name)
-            record.content = value
+          Array.wrap(options[:suffix]).each do |suffix|
+            method_name = [attr_name, suffix].compact.map(&:to_s).join('_')
+            self.page_parts_definitions[:keys] << method_name
+                    
+            define_method(method_name) do
+              page_part(method_name).try(:content)
+            end
+            
+            define_method("#{method_name}=") do |value|
+              record = page_part(method_name)
+              record.content = value
+            end
           end
         end
       end

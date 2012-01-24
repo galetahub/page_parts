@@ -22,6 +22,12 @@ Enable page parts in your model
   @category.content = "Some text"
   @category.sidebar = "Sidebar text"
   @category.save
+  
+With suffixes:
+
+  page_parts :main, :left, :sidebar, :suffix => [:ru, :en, :uk]
+  
+Generates main_ru, main_en, main_uk, left_ru ...
 
 == Test
 
