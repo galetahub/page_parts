@@ -39,34 +39,32 @@ module PageParts
         end
       end
     end
+
     
-    module InstanceMethods
-    
-      # Find page part by key or build new record
-      def find_or_build_page_part(attr_name)
-        key = normalize_page_part_key(attr_name)
-        self.page_parts.where(:key => key).first || self.page_parts.build(:key => key)
-      end
-      
-      # Save page parts records into one hash
-      def page_part(attr_name)
-        key = normalize_page_part_key(attr_name)
-        @page_part ||= {}
-        @page_part[key] ||= find_or_build_page_part(key)
-      end
-      
-      protected
-      
-        def normalize_page_part_key(value)
-          key = value.to_s.downcase.strip
-          
-          unless self.page_parts_definitions[:keys].include?(key)
-            raise NoMethodError, "Page part #{key} not registered"
-          end
-          
-          key
-        end
-      
+    # Find page part by key or build new record
+    def find_or_build_page_part(attr_name)
+      key = normalize_page_part_key(attr_name)
+      self.page_parts.where(:key => key).first || self.page_parts.build(:key => key)
     end
+    
+    # Save page parts records into one hash
+    def page_part(attr_name)
+      key = normalize_page_part_key(attr_name)
+      @page_part ||= {}
+      @page_part[key] ||= find_or_build_page_part(key)
+    end
+    
+    protected
+    
+      def normalize_page_part_key(value)
+        key = value.to_s.downcase.strip
+        
+        unless self.page_parts_definitions[:keys].include?(key)
+          raise NoMethodError, "Page part #{key} not registered"
+        end
+        
+        key
+      end
+      
   end
 end
