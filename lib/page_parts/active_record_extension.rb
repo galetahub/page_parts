@@ -28,33 +28,33 @@ module PageParts
             self.page_parts_definitions[:keys] << method_name
                     
             define_method(method_name) do
-              page_part(method_name).try(:content)
+              _page_part(method_name).try(:content)
             end
             
             define_method("#{method_name}=") do |value|
-              record = page_part(method_name)
+              record = _page_part(method_name)
               record.content = value
             end
           end
         end
       end
     end
-
     
     # Find page part by key or build new record
     def find_or_build_page_part(attr_name)
       key = normalize_page_part_key(attr_name)
-      self.page_parts.where(:key => key).first || self.page_parts.build(:key => key)
-    end
-    
-    # Save page parts records into one hash
-    def page_part(attr_name)
-      key = normalize_page_part_key(attr_name)
-      @page_part ||= {}
-      @page_part[key] ||= find_or_build_page_part(key)
+      #self.page_parts.where(:key => key).first || self.page_parts.build(:key => key)
+      self.page_parts.detect { |record| record.key.to_s == key } || self.page_parts.build(:key => key)
     end
     
     protected
+    
+      # Save page parts records into one hash
+      def _page_part(attr_name)
+        key = normalize_page_part_key(attr_name)
+        @page_part ||= {}
+        @page_part[key] ||= find_or_build_page_part(key)
+      end
     
       def normalize_page_part_key(value)
         key = value.to_s.downcase.strip

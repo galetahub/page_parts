@@ -17,9 +17,9 @@ class PostTest < ActiveSupport::TestCase
     value_en = "Title en"
     @post.title_en = value_en
     
-    assert_equal @post.page_part(:title_ru).content, value_ru
-    assert_equal @post.page_part(:title_en).content, value_en
-    assert_equal @post.page_part(:content_ru).content, nil
+    assert_equal @post.send(:_page_part, :title_ru).content, value_ru
+    assert_equal @post.send(:_page_part, :title_en).content, value_en
+    assert_equal @post.send(:_page_part, :content_ru).content, nil
     
     assert_difference('PagePart.count', 3) do
       @post.save

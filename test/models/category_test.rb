@@ -18,8 +18,8 @@ class CategoryTest < ActiveSupport::TestCase
     value = "Sidebar content"
     @category.sidebar = value
     
-    assert_equal @category.page_part(:sidebar).content, value
-    assert_equal @category.page_part(:content).content, nil
+    assert_equal @category.send(:_page_part, :sidebar).content, value
+    assert_equal @category.send(:_page_part, :content).content, nil
     
     assert_difference('PagePart.count', 2) do
       @category.save
@@ -41,6 +41,11 @@ class CategoryTest < ActiveSupport::TestCase
     @category.sidebar = "Sidebar"
     @category.content = "Main"
     @category.save
+    
+    @category.reload
+    
+    assert_equal @category.sidebar, "Sidebar"
+    assert_equal @category.content, "Main"
     
     @category.update_attributes(:sidebar => "Sidebar 2", :content => "Main 2")
     
