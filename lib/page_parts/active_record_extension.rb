@@ -47,13 +47,18 @@ module PageParts
       self.page_parts.detect { |record| record.key.to_s == key } || self.page_parts.build(:key => key)
     end
     
+    def reload(options = nil)
+      @cached_page_parts = nil
+      super
+    end
+    
     protected
     
       # Save page parts records into one hash
       def _page_part(attr_name)
         key = normalize_page_part_key(attr_name)
-        @page_part ||= {}
-        @page_part[key] ||= find_or_build_page_part(key)
+        @cached_page_parts ||= {}
+        @cached_page_parts[key] ||= find_or_build_page_part(key)
       end
     
       def normalize_page_part_key(value)
