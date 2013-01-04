@@ -1,5 +1,7 @@
+require 'orm_adapter'
+
 module PageParts
-  autoload :ActiveRecordExtension, "page_parts/active_record_extension"
+  autoload :Extension, "page_parts/extension"
 end
 
 require 'page_parts/engine'

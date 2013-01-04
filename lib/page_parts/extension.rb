@@ -1,7 +1,7 @@
 require 'active_support/concern'
 
 module PageParts
-  module ActiveRecordExtension
+  module Extension
     extend ActiveSupport::Concern
     
     included do
@@ -43,7 +43,6 @@ module PageParts
     # Find page part by key or build new record
     def find_or_build_page_part(attr_name)
       key = normalize_page_part_key(attr_name)
-      #self.page_parts.where(:key => key).first || self.page_parts.build(:key => key)
       self.page_parts.detect { |record| record.key.to_s == key } || self.page_parts.build(:key => key)
     end
     

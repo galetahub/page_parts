@@ -5,14 +5,22 @@ Enable page parts in your model
 == Install
 
   gem "page_parts"
-  
+
+ActiveRecord:  
+
+  require 'page_parts/orm/active_record'
+
   rake page_parts_engine:install:migrations
+
+Mongoid:
+
+  require 'page_parts/orm/mongoid'  
 
 == Usage
 
   class Category < ActiveRecord::Base
-    include PageParts::ActiveRecordExtension
-    
+    include PageParts::Extension
+
     validates_presence_of :title
     
     page_parts :content, :sidebar
@@ -33,4 +41,4 @@ Generates main_ru, main_en, main_uk, left_ru ...
 
   rake test
 
-Copyright (c) 2011 Aimbulance, released under the MIT license
+Copyright (c) 2012 Fodojo, released under the MIT license

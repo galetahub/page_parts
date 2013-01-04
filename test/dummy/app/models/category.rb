@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  include PageParts::ActiveRecordExtension
+  include PageParts::Extension
   
   validates_presence_of :title
   
