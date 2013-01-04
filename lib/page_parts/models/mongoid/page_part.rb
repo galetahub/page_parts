@@ -5,7 +5,7 @@ class PagePart
   include Mongoid::Timestamps
 
   # Columns
-  field :key, :type => String, :null => false
+  field :key, :type => String
   field :content, :type => String
 
   index({:key => 1})
