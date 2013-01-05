@@ -45,10 +45,10 @@ module PageParts
       key = normalize_page_part_key(attr_name)
       self.page_parts.detect { |record| record.key.to_s == key } || self.page_parts.build(:key => key)
     end
-    
-    def reload(options = nil)
+
+    def reload(*args)
       @cached_page_parts = nil
-      super
+      super(*args)
     end
     
     protected
