@@ -1,6 +1,8 @@
 # PageParts
 
-Enable page parts in your model
+[![Build Status](https://semaphoreci.com/api/v1/igor-galeta/page_parts/branches/master/shields_badge.svg)](https://semaphoreci.com/igor-galeta/page_parts)
+
+Enable dynamic string attributes in your model
 
 ## Install
 
