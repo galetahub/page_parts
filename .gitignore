@@ -1,5 +1,4 @@
 pkg/
-Gemfile.lock
 .rspec
 test/tmp
 test/dummy/log/*.log
