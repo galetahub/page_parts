@@ -8,7 +8,7 @@ class PagePart
   field :key, type: String
   field :content, type: String
 
-  index({key: 1})
+  index(key: 1)
 
   # Relations
   belongs_to :partable, polymorphic: true, index: true
